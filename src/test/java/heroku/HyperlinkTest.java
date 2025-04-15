@@ -31,13 +31,16 @@ public class HyperlinkTest {
     void load(){
         driver.get("https://the-internet.herokuapp.com/redirector");
     }
-//    @Test (priority = 1)
-    void redirector(){
+    @Test (priority = 1)
+    void redirect(){
         WebElement here = driver.findElement(By.linkText("here"));
-        here.click();
+        WebElement hrefByXpath = driver.findElement(By.xpath("//a[text()='here']"));
+        driver.findElement(By.xpath("//a[.='here']")).click();
+
+//        hrefByXpath2.click();
         Assert.assertEquals(driver.getCurrentUrl(),url);
     }
-    @Test
+    @Test (priority = 2)
     void workAroundInStatusCodePage(){
         clickHere();
         Assert.assertEquals(driver.getCurrentUrl(),url);
@@ -46,6 +49,9 @@ public class HyperlinkTest {
         statusCode200.click();
         Assert.assertEquals(driver.getCurrentUrl(),url + "/200");
         driver.navigate().back();
+//        driver.navigate().refresh();
+//        driver.navigate().forward();
+//        driver.navigate().to();
 
         driver.findElement(By.linkText("301")).click();
         Assert.assertEquals(driver.getCurrentUrl(),url + "/301");
@@ -57,7 +63,7 @@ public class HyperlinkTest {
         Assert.assertEquals(driver.getCurrentUrl(),url + "/500");
 
     }
-//    @AfterClass
+    @AfterClass
     void teardown(){
         driver.quit();
     }

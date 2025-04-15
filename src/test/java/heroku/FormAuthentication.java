@@ -44,28 +44,6 @@ public class FormAuthentication {
 
         Assert.assertTrue(driver.findElement(By.id("flash-messages")).isDisplayed());
         Assert.assertEquals(driver.getCurrentUrl(),"https://the-internet.herokuapp.com/secure");
-        /**
-         * Click on the login button
-         * tagname: button, i
-         * Attribute: class="radius", type="submit"
-         * text: " Login"
-         */
-//        driver.findElement(By.tagName("button")).click();
-//        driver.findElement(By.tagName("i")).click();
-//        driver.findElement(By.className("radius")).click();
-//        driver.findElement(By.cssSelector("button.radius")).click();
-//          driver.findElement(By.cssSelector(".radius")).click();
-//        driver.findElement(By.cssSelector("button[type='submit']")).click();
-
-//        driver.findElement(By.xpath("//*[@class='radius']")).click();
-//        driver.findElement(By.xpath("//*[text()='Login']")).click();
-//        driver.findElement(By.xpath("//*[@class='radius']")).click();
-//        driver.findElement(By.xpath("//button[@class='radius']")).click();
-//        driver.findElement(By.xpath("//button[@type='submit']")).click();
-//        driver.findElement(By.xpath("//button[text()='Login']")).click();
-//        driver.findElement(By.xpath("//i[@class='fa fa-2x fa-sign-in']")).click();
-//          driver.findElement(By.xpath("//i[contains(text(),' Login')]")).click();
-
 
     }
     @AfterClass

@@ -15,11 +15,9 @@ import java.time.Duration;
 
 public class Checkboxes {
     WebDriver driver;
-    WebDriverWait wait;
     @BeforeClass
     void Setup(){
         driver  = new ChromeDriver();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
     @BeforeMethod
     void load(){
@@ -27,35 +25,26 @@ public class Checkboxes {
     }
 
     @Test
-    void theCheckboxesShouldSelected(){
-        WebElement checkbox1 = driver.findElement(By.xpath("//input[@type='checkbox'][1]"));
-        check(checkbox1);
-        Assert.assertTrue(driver.findElement(By.xpath("//input[@type='checkbox'][1]")).isSelected());
-        WebElement checkbox2 = driver.findElement(By.xpath("//input[@type='checkbox'][2]"));
-        check(checkbox2);
-        Assert.assertTrue(driver.findElement(By.xpath("//input[@type='checkbox'][2]")).isSelected());
+    void VerifyDefaultCheckboxesState(){
+
+        Assert.assertFalse(driver.findElement(By.xpath("//input[1]"))
+                .isSelected(),"Checkbox1 is selected by default");
+        Assert.assertTrue(driver.findElement(By.xpath("//input[2]"))
+                .isSelected(),"Checkbox2 is not selected by default");
     }
     @Test
-    void theCheckboxesShouldeDeselected(){
-        WebElement checkbox1 = driver.findElement(By.xpath("//input[@type='checkbox'][1]"));
-        uncheck(checkbox1);
-        Assert.assertFalse(driver.findElement(By.xpath("//input[@type='checkbox'][1]")).isSelected());
-        WebElement checkbox2 = driver.findElement(By.xpath("//input[@type='checkbox'][2]"));
-        uncheck(checkbox2);
-        Assert.assertFalse(driver.findElement(By.xpath("//input[@type='checkbox'][2]")).isSelected());
+    void VerifyCheckbox1AbleToBeChecked(){
+        check(driver.findElement(By.xpath("//input[1]")));
+        Assert.assertTrue(driver.findElement(By.xpath("//input[1]")).isSelected(),"Unable to check checkbox1");
+        uncheck(driver.findElement(By.xpath("//input[1]")));
+        Assert.assertFalse(driver.findElement(By.xpath("//input[1]")).isSelected(),"Unable to uncheck checkbox1");
     }
     @Test
-    void theCheckboxesShouldSelectedAndDeselected() {
-        WebElement checkbox1 = driver.findElement(By.xpath("//input[@type='checkbox'][1]"));
-        check(checkbox1);
-        Assert.assertTrue(driver.findElement(By.xpath("//input[@type='checkbox'][1]")).isSelected());
-        uncheck(checkbox1);
-        Assert.assertFalse(driver.findElement(By.xpath("//input[@type='checkbox'][1]")).isSelected());
-        WebElement checkbox2 = driver.findElement(By.xpath("//input[@type='checkbox'][2]"));
-        uncheck(checkbox2);
-        Assert.assertFalse(driver.findElement(By.xpath("//input[@type='checkbox'][2]")).isSelected());
-        check(checkbox2);
-        Assert.assertTrue(driver.findElement(By.xpath("//input[@type='checkbox'][2]")).isSelected());
+    void VerifyCheckbox2AbleToBeChecked(){
+        uncheck(driver.findElement(By.xpath("//input[2]")));
+        Assert.assertFalse(driver.findElement(By.xpath("//input[2]")).isSelected(),"Unable to uncheck checkbox2");
+        check(driver.findElement(By.xpath("//input[2]")));
+        Assert.assertTrue(driver.findElement(By.xpath("//input[2]")).isSelected(),"Unable to check checkbox2");
     }
     @AfterClass
     void tearDown(){

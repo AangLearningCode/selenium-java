@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -21,6 +22,13 @@ public class DropDown {
         driver.get("https://the-internet.herokuapp.com/dropdown");
     }
     @Test
+    void DefaultOptionShouldBeDisplayed(){
+        WebElement select = driver.findElement(By.id("dropdown"));
+        Select dropdown = new Select(select);
+
+        Assert.assertEquals(dropdown.getFirstSelectedOption().getText(),"Please select an option");
+    }
+    @Test
     void Option1ShouldSelected(){
         WebElement select = driver.findElement(By.id("dropdown"));
         Select dropdown = new Select(select);
@@ -29,6 +37,17 @@ public class DropDown {
 
         Assert.assertTrue(driver.findElement(By.xpath("//select[@id='dropdown']/option[.='Option 1']")).isSelected());
         Assert.assertTrue(driver.findElement(By.xpath("//select[@id='dropdown']/option[text()='Option 1']")).isSelected());
+
+    }
+    @Test
+    void Option2ShouldSelected(){
+        WebElement select = driver.findElement(By.id("dropdown"));
+        Select dropdown = new Select(select);
+
+        dropdown.selectByVisibleText("Option 2");
+
+        Assert.assertTrue(driver.findElement(By.xpath("//select[@id='dropdown']/option[.='Option 2']")).isSelected());
+        Assert.assertTrue(driver.findElement(By.xpath("//select[@id='dropdown']/option[text()='Option 2']")).isSelected());
 
     }
     @Test
@@ -47,6 +66,10 @@ public class DropDown {
         Assert.assertFalse(driver.findElement(By.xpath("//option[.='Apple']")).isSelected());
         Assert.assertFalse(driver.findElement(By.xpath("//option[.='Orange']")).isSelected());
         Assert.assertFalse(driver.findElement(By.xpath("//option[.='Grape']")).isSelected());
+    }
+    @AfterClass
+    void TearDown(){
+        driver.quit();
     }
 
 }
