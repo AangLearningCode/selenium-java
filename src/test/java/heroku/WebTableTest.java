@@ -44,7 +44,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class WebTableTest {
@@ -77,6 +81,26 @@ public class WebTableTest {
         tRows.forEach(row -> {
             List<WebElement> tCells = row.findElements(By.cssSelector("td"));
         });
+    }
+
+
+    @Test
+    void tc06(){
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://the-internet.herokuapp.com/tables");
+
+        List<Person> personList = new ArrayList<>();
+
+        driver.findElements(By.xpath("//table[@id='table1']/tbody/tr"))
+                .forEach(row -> {
+                    String lastName = row.findElement(By.xpath("./td[1]")).getText();
+                    String firstName = row.findElement(By.xpath("./td[2]")).getText();
+                    double due = Double.parseDouble(row.findElement(By.xpath("./td[4]")).getText().replace("$", ""));
+                    personList.add(new Person( firstName,lastName, due));
+                });
+        String maxDuePersonFullName = personList.stream().max(Comparator.comparing(Person::getDue)).get().getFullName();
+        Assert.assertEquals(maxDuePersonFullName, "Jason Doe");
+        driver.quit();
     }
 
 }
