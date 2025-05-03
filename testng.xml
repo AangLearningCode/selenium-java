@@ -1,0 +1,17 @@
+<suite name="MyTestSuite" >
+    <test name="MyTest">
+        <classes>
+            <class name="com.example.MyTestClass"/>
+                <methods>
+                        <method name="testMethod1"/>
+                        <method name="testMethod2"/>
+                </methods>
+            /class>
+        </classes>
+    </test>
+    <test name ="AnotherTest">
+        <classes>
+            <class name="com.example.AnotherTestClass"/>
+        </classes>
+    </test>
+</suite>
