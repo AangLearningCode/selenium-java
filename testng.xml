@@ -1,17 +1,22 @@
-<suite name="MyTestSuite" >
-    <test name="MyTest">
+<suite name="Suite" >
+    <test name="demo">
         <classes>
-            <class name="com.example.MyTestClass"/>
+            <class name="demo.SampleTest1">
                 <methods>
-                        <method name="testMethod1"/>
-                        <method name="testMethod2"/>
+                    <include name="testMethod1"/>
+                    <include name="testMethod2"/>
                 </methods>
-            /class>
+            </class>
         </classes>
     </test>
-    <test name ="AnotherTest">
+
+    <test name="demo2">
         <classes>
-            <class name="com.example.AnotherTestClass"/>
+            <class name="demo.SampleTest2"/>
+<!--                <methods>-->
+<!--                    <include name="testMethod1"/>-->
+<!--                </methods>-->
+<!--            </class>-->
         </classes>
     </test>
 </suite>

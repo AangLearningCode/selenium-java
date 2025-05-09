@@ -74,6 +74,7 @@ public class WebTableTest {
                .collect(Collectors.toList());
 
        Assert.assertEquals(maxDuePersons.stream().map(Person::getFullName).collect(Collectors.toList()), List.of("Jason Doe"));
+
     }
 
 }
