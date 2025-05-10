@@ -6,7 +6,7 @@ import utils.Browser;
 
 import static utils.Browser.*;
 
-public class calculator {
+public class CalculatorPage {
     /**
      * fill form
      * get result

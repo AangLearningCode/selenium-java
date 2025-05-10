@@ -5,19 +5,20 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import pages.calculator.BMIPage;
+import pages.calcualtor.CalculatorPage;
 
 import static utils.Browser.openBrowser;
 import static utils.Browser.quit;
 
-public class verifyBIMCalculatorClassification {
-    BMIPage bmiPage;
+public class BMICalculatorTest {
+    CalculatorPage calculatorPage;
     @BeforeMethod
     void setup() {
         openBrowser("chrome");
-        bmiPage.open();
-        bmiPage.selectUnitMetric();
-        bmiPage.clearForm();
+        calculatorPage = new CalculatorPage();
+        calculatorPage.open();
+        calculatorPage.selectUnitMetric();
+        calculatorPage.clearForm();
     }
     @DataProvider
     public Object[][] testData() {
@@ -30,9 +31,9 @@ public class verifyBIMCalculatorClassification {
     }
     @Test(dataProvider = "testData")
     void verifyNormalClassification(String age, String gender,String height, String weight, String expectedResult) {
-        bmiPage.fillForm(age, gender, height, weight);
+        calculatorPage.fillForm(age, gender, height, weight);
 
-        String resultText = bmiPage.getResultText();
+        String resultText = calculatorPage.getResultText();
 
         Assert.assertEquals(resultText,expectedResult);
     }

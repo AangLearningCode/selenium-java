@@ -39,8 +39,6 @@ table2: Class attributes to signify groupings of rows and columns
 
 * */
 package heroku;
-
-import org.checkerframework.checker.units.qual.A;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -48,8 +46,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.OptionalDouble;
 import java.util.stream.Collectors;

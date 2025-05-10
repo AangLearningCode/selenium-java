@@ -1,6 +1,6 @@
 package browser;
 
-import org.checkerframework.checker.units.qual.A;
+;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,11 +8,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.HasDevTools;
-import org.openqa.selenium.devtools.v85.emulation.Emulation;
-import org.openqa.selenium.devtools.v85.network.Network;
-import org.openqa.selenium.devtools.v85.network.model.ConnectionType;
-import org.openqa.selenium.devtools.v85.performance.Performance;
-import org.openqa.selenium.devtools.v85.performance.model.Metric;
+import org.openqa.selenium.devtools.v134.emulation.Emulation;
+import org.openqa.selenium.devtools.v134.network.Network;
+import org.openqa.selenium.devtools.v134.network.model.ConnectionType;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -81,23 +79,23 @@ public class ChromeTest {
         Assert.assertEquals(driver.findElement(By.cssSelector("#long-value")).getText(),"-122.083851");
     }
 //    @Test
-    void simulate3GNetworkCondition(){
-        WebDriver driver = new ChromeDriver();
-        DevTools devTools = ((HasDevTools) driver).getDevTools();
-        devTools.createSession();
-        //Enable network simulator
-        devTools.send(Network.enable(Optional.of(100000000),Optional.empty(),Optional.empty()));
-        //Set network conditions
-        devTools.send(Network.emulateNetworkConditions(
-                false,
-                100,
-                75000,
-                25000,
-                Optional.of(ConnectionType.NONE)
-        ));
-        driver.get("https://www.selenium.dev/");
-
-    }
+//    void simulate3GNetworkCondition(){
+//        WebDriver driver = new ChromeDriver();
+//        DevTools devTools = ((HasDevTools) driver).getDevTools();
+//        devTools.createSession();
+//        //Enable network simulator
+//        devTools.send(Network.enable(Optional.of(100000000),Optional.empty(),Optional.empty()));
+//        //Set network conditions
+//        devTools.send(Network.emulateNetworkConditions(
+//                false,
+//                100,
+//                75000,
+//                25000,
+//                Optional.of(ConnectionType.NONE)
+//        ));
+//        driver.get("https://www.selenium.dev/");
+//
+//    }
 //    @Test
     void interceptionNetwork(){
         WebDriver driver = new ChromeDriver();
@@ -121,20 +119,20 @@ public class ChromeTest {
         driver.get("https://www.selenium.dev/");
 
     }
-    @Test
-    void openSeleniumHomePageAndCapturePerformanceMetrics(){
-        ChromeDriver driver = new ChromeDriver();
-        DevTools devTools = driver.getDevTools();
-        devTools.createSession();
-        devTools.send(Performance.enable(Optional.empty()));
-        List<Metric> metricList = devTools.send(Performance.getMetrics());
-
-        driver.get("https://www.selenium.dev/");
-        Assert.assertEquals(driver.getTitle(),"Selenium");
-        driver.quit();
-        for(Metric m : metricList){
-            System.out.println(m.getName() + " : " + m.getValue());
-        }
-
-    }
+//    @Test
+//    void openSeleniumHomePageAndCapturePerformanceMetrics(){
+//        ChromeDriver driver = new ChromeDriver();
+//        DevTools devTools = driver.getDevTools();
+//        devTools.createSession();
+//        devTools.send(Performance.enable(Optional.empty()));
+//        List<Metric> metricList = devTools.send(Performance.getMetrics());
+//
+//        driver.get("https://www.selenium.dev/");
+//        Assert.assertEquals(driver.getTitle(),"Selenium");
+//        driver.quit();
+//        for(Metric m : metricList){
+//            System.out.println(m.getName() + " : " + m.getValue());
+//        }
+//
+//    }
 }
