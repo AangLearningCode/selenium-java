@@ -1,10 +1,7 @@
 package calculator;
 
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import pages.calcualtor.CalculatorPage;
 
 import static utils.Browser.openBrowser;
@@ -12,7 +9,7 @@ import static utils.Browser.quit;
 
 public class BMICalculatorTest {
     CalculatorPage calculatorPage;
-    @BeforeMethod
+    @BeforeClass
     void setup() {
         openBrowser("chrome");
         calculatorPage = new CalculatorPage();
@@ -37,7 +34,7 @@ public class BMICalculatorTest {
 
         Assert.assertEquals(resultText,expectedResult);
     }
-    @AfterMethod
+    @AfterClass
     void tearDown() {
         quit();
     }

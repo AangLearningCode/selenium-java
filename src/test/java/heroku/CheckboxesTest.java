@@ -1,63 +1,46 @@
 package heroku;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import pages.heroku.CheckboxesPage;
 
-import java.time.Duration;
+import static utils.Browser.openBrowser;
+import static utils.Browser.quit;
 
-public class Checkboxes {
-    WebDriver driver;
+public class CheckboxesTest {
+    CheckboxesPage checkboxesPage;
     @BeforeClass
-    void Setup(){
-        driver  = new ChromeDriver();
-    }
-    @BeforeMethod
-    void load(){
-        driver.get("https://the-internet.herokuapp.com/checkboxes");
+    void setup(){
+        openBrowser("chrome");
+        checkboxesPage = new CheckboxesPage();
+        checkboxesPage.open();
     }
 
     @Test
     void VerifyDefaultCheckboxesState(){
 
-        Assert.assertFalse(driver.findElement(By.xpath("//input[1]"))
-                .isSelected(),"Checkbox1 is selected by default");
-        Assert.assertTrue(driver.findElement(By.xpath("//input[2]"))
-                .isSelected(),"Checkbox2 is not selected by default");
+        Assert.assertFalse(checkboxesPage.isCheckboxChecked("1"),"Checkbox1 is not selected by default");
+        Assert.assertTrue(checkboxesPage.isCheckboxUnchecked("2"),"Checkbox2 is not selected by default");
     }
     @Test
     void VerifyCheckbox1AbleToBeChecked(){
-        check(driver.findElement(By.xpath("//input[1]")));
-        Assert.assertTrue(driver.findElement(By.xpath("//input[1]")).isSelected(),"Unable to check checkbox1");
-        uncheck(driver.findElement(By.xpath("//input[1]")));
-        Assert.assertFalse(driver.findElement(By.xpath("//input[1]")).isSelected(),"Unable to uncheck checkbox1");
+        checkboxesPage.check("1");
+        Assert.assertTrue(checkboxesPage.isCheckboxChecked("1"),"Checkbox1 is not selected by default");
+        checkboxesPage.uncheck("1");
+        Assert.assertFalse(checkboxesPage.isCheckboxChecked("1"),"Unable to uncheck checkbox1");
     }
     @Test
     void VerifyCheckbox2AbleToBeChecked(){
-        uncheck(driver.findElement(By.xpath("//input[2]")));
-        Assert.assertFalse(driver.findElement(By.xpath("//input[2]")).isSelected(),"Unable to uncheck checkbox2");
-        check(driver.findElement(By.xpath("//input[2]")));
-        Assert.assertTrue(driver.findElement(By.xpath("//input[2]")).isSelected(),"Unable to check checkbox2");
+        checkboxesPage.check("2");
+        Assert.assertTrue(checkboxesPage.isCheckboxChecked("2"),"Checkbox1 is not selected by default");
+        checkboxesPage.uncheck("2");
+        Assert.assertFalse(checkboxesPage.isCheckboxChecked("2"),"Unable to uncheck checkbox2");
     }
     @AfterClass
     void tearDown(){
-        driver.quit();
-    }
-    void check(WebElement checkbox){
-        if(!checkbox.isSelected()){
-            checkbox.click();
-        }
-    }
-    void uncheck(WebElement checkbox){
-        if(checkbox.isSelected()){
-            checkbox.click();
-        }
+        quit();
     }
 }

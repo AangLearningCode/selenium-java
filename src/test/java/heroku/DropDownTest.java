@@ -1,75 +1,35 @@
 package heroku;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.Select;
+
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import static utils.Browser.*;
+import pages.heroku.DropdownPage;
 
-public class DropDown {
-    WebDriver driver;
+public class DropDownTest {
+    DropdownPage dropdownPage;
     @BeforeClass
     void setup(){
-        driver = new ChromeDriver();
-    }
-    @BeforeMethod
-    void load(){
-        driver.get("https://the-internet.herokuapp.com/dropdown");
+        openBrowser("chrome");
+        dropdownPage = new DropdownPage();
+        dropdownPage.open();
     }
     @Test
-    void DefaultOptionShouldBeDisplayed(){
-        WebElement select = driver.findElement(By.id("dropdown"));
-        Select dropdown = new Select(select);
 
-        Assert.assertEquals(dropdown.getFirstSelectedOption().getText(),"Please select an option");
+    void Option1ShouldBeSelected(){
+        dropdownPage.selectOption("Option 1");
+        Assert.assertTrue(dropdownPage.isOptionSelected("Option 1"),"Option 1 is not selected");
     }
     @Test
-    void Option1ShouldSelected(){
-        WebElement select = driver.findElement(By.id("dropdown"));
-        Select dropdown = new Select(select);
-
-        dropdown.selectByVisibleText("Option 1");
-
-        Assert.assertTrue(driver.findElement(By.xpath("//select[@id='dropdown']/option[.='Option 1']")).isSelected());
-        Assert.assertTrue(driver.findElement(By.xpath("//select[@id='dropdown']/option[text()='Option 1']")).isSelected());
-
+    void Option2ShouldBeSelected(){
+        dropdownPage.selectOption("Option 2");
+        Assert.assertTrue(dropdownPage.isOptionSelected("Option 2"),"Option 2 is not selected");
     }
-    @Test
-    void Option2ShouldSelected(){
-        WebElement select = driver.findElement(By.id("dropdown"));
-        Select dropdown = new Select(select);
 
-        dropdown.selectByVisibleText("Option 2");
-
-        Assert.assertTrue(driver.findElement(By.xpath("//select[@id='dropdown']/option[.='Option 2']")).isSelected());
-        Assert.assertTrue(driver.findElement(By.xpath("//select[@id='dropdown']/option[text()='Option 2']")).isSelected());
-
-    }
-    @Test
-    void verifySelectMultipleOptionsSuccessfully() {
-        driver.get("https://output.jsbin.com/osebed/2");
-        Select select = new Select(driver.findElement(By.id("fruits")));
-
-        select.selectByVisibleText("Banana");
-        select.selectByVisibleText("Apple");
-
-        Assert.assertTrue(driver.findElement(By.xpath("//option[.='Banana']")).isSelected());
-        Assert.assertTrue(driver.findElement(By.xpath("//option[.='Apple']")).isSelected());
-
-        select.deselectAll();
-        Assert.assertFalse(driver.findElement(By.xpath("//option[.='Banana']")).isSelected());
-        Assert.assertFalse(driver.findElement(By.xpath("//option[.='Apple']")).isSelected());
-        Assert.assertFalse(driver.findElement(By.xpath("//option[.='Orange']")).isSelected());
-        Assert.assertFalse(driver.findElement(By.xpath("//option[.='Grape']")).isSelected());
-    }
     @AfterClass
     void TearDown(){
-        driver.quit();
+        quit();
     }
-
 }

@@ -1,74 +1,59 @@
 package heroku;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import pages.heroku.HyperlinkPage;
 
-import java.time.Duration;
+
+import static utils.Browser.*;
 
 public class HyperlinkTest {
-    WebDriver driver;
-    WebDriverWait wait;
-    ChromeOptions options = new ChromeOptions();
-    String url = "https://the-internet.herokuapp.com/status_codes";
+    HyperlinkPage hyperlinkPage;
+
     @BeforeClass
     void setup(){
-//        options = new ChromeOptions();
-//        options.addArguments("--headless");
-        driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        openBrowser("chrome");
+        hyperlinkPage = new HyperlinkPage();
 
     }
+
     @BeforeMethod
-    void load(){
-        driver.get("https://the-internet.herokuapp.com/redirector");
+    void openPage(){
+        hyperlinkPage.open();
     }
-    @Test (priority = 1)
+
+    @Test
     void redirect(){
-        WebElement here = driver.findElement(By.linkText("here"));
-        WebElement hrefByXpath = driver.findElement(By.xpath("//a[text()='here']"));
-        driver.findElement(By.xpath("//a[.='here']")).click();
-
-//        hrefByXpath2.click();
-        Assert.assertEquals(driver.getCurrentUrl(),url);
+        hyperlinkPage.clickStatusCode("here");
+        Assert.assertEquals(getCurrentUrl(),"https://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml");
     }
-    @Test (priority = 2)
+
+    @Test
     void workAroundInStatusCodePage(){
-        clickHere();
-        Assert.assertEquals(driver.getCurrentUrl(),url);
+        hyperlinkPage.clickStatusCode("200");
+        Assert.assertTrue(hyperlinkPage.isStatusCodeDisplayed("200"),"Status code 200 is not displayed");
+        hyperlinkPage.clickStatusCode("here");
 
-        WebElement statusCode200 = driver.findElement(By.linkText("200"));
-        statusCode200.click();
-        Assert.assertEquals(driver.getCurrentUrl(),url + "/200");
-        driver.navigate().back();
-//        driver.navigate().refresh();
-//        driver.navigate().forward();
-//        driver.navigate().to();
+        hyperlinkPage.clickStatusCode("301");
+        Assert.assertTrue(hyperlinkPage.isStatusCodeDisplayed("301"),"Status code 301 is not displayed");
+        hyperlinkPage.clickStatusCode("here");
 
-        driver.findElement(By.linkText("301")).click();
-        Assert.assertEquals(driver.getCurrentUrl(),url + "/301");
-        clickHere();
-        driver.findElement(By.linkText("404")).click();
-        Assert.assertEquals(driver.getCurrentUrl(),url + "/404");
-        clickHere();
-        driver.findElement(By.linkText("500")).click();
-        Assert.assertEquals(driver.getCurrentUrl(),url + "/500");
+        hyperlinkPage.clickStatusCode("404");
+        Assert.assertTrue(hyperlinkPage.isStatusCodeDisplayed("404"),"Status code 404 is not displayed");
+        hyperlinkPage.clickStatusCode("here");
 
+        hyperlinkPage.clickStatusCode("500");
+        Assert.assertTrue(hyperlinkPage.isStatusCodeDisplayed("500"),"Status code 500 is not displayed");
+        hyperlinkPage.clickStatusCode("here");
     }
+
     @AfterClass
     void teardown(){
-        driver.quit();
+        quit();
     }
-    void clickHere(){
-        WebElement here = driver.findElement(By.linkText("here"));
-        here.click();
-    }
+
 }

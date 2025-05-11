@@ -9,6 +9,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -21,13 +22,15 @@ import java.time.Duration;
 public class Browser {
     private static WebDriver driver;
     public static WebDriverWait wait;
+    private static Actions action;
 
     public static void openBrowser(String browser) {
         switch (browser.toLowerCase()) {
             case "chrome":
-                ChromeOptions options = new ChromeOptions();
-                options.addArguments("--headless");
-                driver = new ChromeDriver(options);
+//                ChromeOptions options = new ChromeOptions();
+//                options.addArguments("--headless");
+//                driver = new ChromeDriver(options);
+                driver = new ChromeDriver();
                 break;
             case "firefox":
                 driver = new FirefoxDriver();
@@ -43,10 +46,12 @@ public class Browser {
                 break;
         }
         wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        action = new Actions(driver);
     }
     public static WebDriver getDriver() {
         return driver;
     }
+
     public static void visit(String url){
         driver.get(url);
     }
@@ -79,6 +84,17 @@ public class Browser {
         return driver.getCurrentUrl();
     }
 
+    public static void hover(By by){
+        action.moveToElement(driver.findElement(by)).perform();
+    }
+
+    public static void dragAndDrop(By positionA, By positionB){
+        action.dragAndDrop(
+                driver.findElement(positionA),
+                driver.findElement(positionB))
+                .perform();
+    }
+
     public static void captureScreenshot(String fileName){
         TakesScreenshot takesScreenshot = (TakesScreenshot) driver;
         File srcFile = takesScreenshot.getScreenshotAs(OutputType.FILE);
@@ -89,6 +105,8 @@ public class Browser {
             throw new RuntimeException(e);
         }
     }
+
+
 
 }
 
