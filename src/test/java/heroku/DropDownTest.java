@@ -17,7 +17,6 @@ public class DropDownTest {
         dropdownPage.open();
     }
     @Test
-
     void Option1ShouldBeSelected(){
         dropdownPage.selectOption("Option 1");
         Assert.assertTrue(dropdownPage.isOptionSelected("Option 1"),"Option 1 is not selected");

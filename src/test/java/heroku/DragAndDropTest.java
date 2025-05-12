@@ -1,6 +1,5 @@
 package heroku;
 
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -15,16 +14,17 @@ public class DragAndDropTest {
 
     @BeforeMethod
     void setup() {
-        openBrowser( "chrome");
+        openBrowser("chrome");
         dragAndDropPage = new DragAndDropPage();
         dragAndDropPage.open();
-
     }
+
     @Test
     void leftToRight() {
         dragAndDropPage.dragAndDropLeftToRight();
         Assert.assertEquals(dragAndDropPage.checkColumnA(), "B", "Column A text is not B");
     }
+
     @Test
     void rightToLeft() {
         dragAndDropPage.dragAndDropRightToLeft();
