@@ -1,10 +1,7 @@
 package utils;
 
 import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -17,7 +14,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
-import java.util.HashMap;
 
 // selenium owner methods
 public class Browser {
@@ -98,6 +94,29 @@ public class Browser {
 
     public static void moveToElement(By by){
         action.moveToElement(driver.findElement(by)).perform();
+    }
+
+    //Scroll action
+    public static void scrollToElement(By by){
+        action.scrollToElement(driver.findElement(by)).perform();
+    }
+
+    public static void scrollDownByAmount(int amount){
+        action.scrollByAmount(0, amount).perform();
+    }
+
+    //Mouse action
+    public static void rightClick(By by){
+        action.contextClick(driver.findElement(by)).perform();
+    }
+
+    //Keyboard action
+    public static void pressEscape(By by){
+        action.sendKeys(driver.findElement(by), Keys.ESCAPE).perform();
+    }
+
+    public static void pressEnter(By by){
+        action.sendKeys(driver.findElement(by), Keys.ENTER).perform();
     }
 
     public static void captureScreenshot(String fileName){
