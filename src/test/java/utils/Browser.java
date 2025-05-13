@@ -45,91 +45,95 @@ public class Browser {
         wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         action = new Actions(driver);
     }
+
     public static WebDriver getDriver() {
         return driver;
     }
 
-    public static void visit(String url){
+    public static void visit(String url) {
         driver.get(url);
     }
+
     public static void quit() {
         driver.quit();
     }
-    public static void click(By by){
+
+    public static void click(By by) {
         wait
                 .until(ExpectedConditions.elementToBeClickable(by))
                 .click();
     }
-    public static void fill(By by,String withText){
+
+    public static void fill(By by, String withText) {
         driver.findElement(by).sendKeys(withText);
     }
 
-    public static boolean isSelected(By by){
+    public static boolean isSelected(By by) {
         return driver.findElement(by).isSelected();
     }
 
-    public static void check(By by){
-        if(!isSelected(by)){
+    public static void check(By by) {
+        if (!isSelected(by)) {
             click(by);
         }
     }
 
-    public static String getText(By by){
+    public static String getText(By by) {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(by)).getText();
     }
-    public static String getCurrentUrl(){
+
+    public static String getCurrentUrl() {
         return driver.getCurrentUrl();
     }
 
-    public static void hover(By by){
+    public static void hover(By by) {
         action.moveToElement(driver.findElement(by)).perform();
     }
 
-    public static void dragAndDrop(By positionA, By positionB){
+    public static void dragAndDrop(By positionA, By positionB) {
         action.dragAndDrop(
-                driver.findElement(positionA),
-                driver.findElement(positionB))
+                        driver.findElement(positionA),
+                        driver.findElement(positionB))
                 .perform();
     }
 
-    public static void moveToElement(By by){
+    public static void moveToElement(By by) {
         action.moveToElement(driver.findElement(by)).perform();
     }
 
     //Scroll action
-    public static void scrollToElement(By by){
+    public static void scrollToElement(By by) {
         action.scrollToElement(driver.findElement(by)).perform();
     }
 
-    public static void scrollDownByAmount(int amount){
+    public static void scrollDownByAmount(int amount) {
         action.scrollByAmount(0, amount).perform();
     }
 
     //Mouse action
-    public static void rightClick(By by){
+    public static void rightClick(By by) {
         action.contextClick(driver.findElement(by)).perform();
     }
 
     //Keyboard action
-    public static void pressEscape(By by){
+    public static void pressEscape(By by) {
         action.sendKeys(driver.findElement(by), Keys.ESCAPE).perform();
     }
 
-    public static void pressEnter(By by){
+    public static void pressEnter(By by) {
         action.sendKeys(driver.findElement(by), Keys.ENTER).perform();
     }
 
-    public static void captureScreenshot(String fileName){
+    public static void captureScreenshot(String fileName) {
         TakesScreenshot takesScreenshot = (TakesScreenshot) driver;
         File srcFile = takesScreenshot.getScreenshotAs(OutputType.FILE);
-        File destFile = new File(String.format("target/screenshots-%s-%s.png", fileName,System.currentTimeMillis()));
+        File destFile = new File(String.format("target/screenshots-%s-%s.png", fileName, System.currentTimeMillis()));
         try {
             FileUtils.copyFile(srcFile, destFile);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-
 
 
 }
