@@ -99,27 +99,6 @@ public class Browser {
     public static void moveToElement(By by){
         action.moveToElement(driver.findElement(by)).perform();
     }
-    public static void slider(By by, Double xOffset, int yOffset){
-        moveToElement(by);
-
-        HashMap<Double, Integer> offsets = new HashMap<>();
-        offsets.put(0.0, -65);
-        offsets.put(0.5, -52);
-        offsets.put(1.0, -39);
-        offsets.put(1.5, -26);
-        offsets.put(2.0, -13);
-        offsets.put(2.5, 0);
-        offsets.put(3.0, 13);
-        offsets.put(3.5, 26);
-        offsets.put(4.0, 39);
-        offsets.put(4.5, 52);
-        offsets.put(5.0, 65);
-
-        action.clickAndHold(driver.findElement(by))
-                .moveByOffset( offsets.get(xOffset), yOffset)
-                .release()
-                .perform();
-    }
 
     public static void captureScreenshot(String fileName){
         TakesScreenshot takesScreenshot = (TakesScreenshot) driver;
