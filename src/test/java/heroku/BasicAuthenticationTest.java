@@ -15,15 +15,13 @@ public class BasicAuthenticationTest {
     @BeforeMethod
     void setup(String browser){
         openBrowser(browser);
-        formAuthenticationPage = new FormAuthentificationPage();
-        formAuthenticationPage.open();
     }
 
     @Test (priority = 1)
     void VerifyBasicAuthentication(){
-        fill(By.id("username"),"tomsmith");
-        fill(By.id("password"),"SuperSecretPassword");
-        click(By.cssSelector("type=submit"));
-        Assert.assertEquals(getCurrentUrl(),"https://the-internet.herokuapp.com/basic_auth");
+        visit("https://admin:admin@the-internet.herokuapp.com/basic_auth");
+
+        Assert.assertEquals(getCurrentUrl(),"https://admin:admin@the-internet.herokuapp.com/basic_auth");
+
     }
 }
