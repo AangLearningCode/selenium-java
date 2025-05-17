@@ -16,6 +16,7 @@ public class BasicAuthenticationTest {
     void setup(String browser){
         openBrowser(browser);
         formAuthenticationPage = new FormAuthentificationPage();
+        formAuthenticationPage.open();
     }
 
     @Test (priority = 1)
