@@ -19,23 +19,9 @@ public class HoversTest {
         hoverPage.open();
     }
 
-//    @Test
+    @Test
     void hoverOverAvatar1() {
         hoverPage.hoverOverAvatar("1");
-        Assert.assertTrue(hoverPage.isAvatarTextDisplayed(), "Avatar text is not displayed");
-        Assert.assertTrue(hoverPage.isProfileUrlDisplayed(), "Profile URL is not displayed");
-    }
-
-//    @Test
-    void hoverOverAvatar2() {
-        hoverPage.hoverOverAvatar("2");
-        Assert.assertTrue(hoverPage.isAvatarTextDisplayed(), "Avatar text is not displayed");
-        Assert.assertTrue(hoverPage.isProfileUrlDisplayed(), "Profile URL is not displayed");
-    }
-
-    @Test
-    void hoverOverAvatar3() {
-        hoverPage.hoverOverAvatar("3");
         Assert.assertTrue(hoverPage.isAvatarTextDisplayed(), "Avatar text is not displayed");
         Assert.assertTrue(hoverPage.isProfileUrlDisplayed(), "Profile URL is not displayed");
     }

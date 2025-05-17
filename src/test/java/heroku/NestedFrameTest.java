@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
@@ -12,7 +13,9 @@ import java.util.List;
 public class NestedFrameTest {
     @Test
     void tc6(){
-        WebDriver driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        WebDriver driver = new ChromeDriver(options);
         driver.get("https://the-internet.herokuapp.com/nested_frames");
         driver.switchTo().frame(driver.findElement(By.xpath("//frame[@name='frame-top']")));
 

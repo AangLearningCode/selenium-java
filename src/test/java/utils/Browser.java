@@ -24,10 +24,10 @@ public class Browser {
     public static void openBrowser(String browser) {
         switch (browser.toLowerCase()) {
             case "chrome":
-//                ChromeOptions options = new ChromeOptions();
-//                options.addArguments("--headless");
-//                driver = new ChromeDriver(options);
-                driver = new ChromeDriver();
+                ChromeOptions options = new ChromeOptions();
+                options.addArguments("--headless");
+                driver = new ChromeDriver(options);
+//                driver = new ChromeDriver();
                 break;
             case "firefox":
                 driver = new FirefoxDriver();

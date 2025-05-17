@@ -5,6 +5,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -12,7 +13,9 @@ import org.testng.annotations.Test;
 public class MouseTest {
     @Test
     void hoverTest(){
-        WebDriver driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        WebDriver driver = new ChromeDriver(options);
         driver.get("https://the-internet.herokuapp.com/hovers");
 
         Actions action = new Actions(driver);
@@ -24,7 +27,9 @@ public class MouseTest {
     }
     @Test
     void dragAndDropTest(){
-        WebDriver driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        WebDriver driver = new ChromeDriver(options);
         driver.get("https://the-internet.herokuapp.com/drag_and_drop");
 
         Actions action = new Actions(driver);
@@ -40,7 +45,9 @@ public class MouseTest {
     }
     @Test
     void horizontalSliderTest(){
-        WebDriver driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        WebDriver driver = new ChromeDriver(options);
         driver.get("https://the-internet.herokuapp.com/horizontal_slider");
 
         Actions action = new Actions(driver);
@@ -54,7 +61,9 @@ public class MouseTest {
     }
     @Test
     void infiniteScrollTest() throws InterruptedException {
-        WebDriver driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        WebDriver driver = new ChromeDriver(options);
         driver.get("https://the-internet.herokuapp.com/infinite_scroll");
 
         Actions action = new Actions(driver);
@@ -65,8 +74,10 @@ public class MouseTest {
         driver.quit();
     }
     @Test
-    void contextMenuTest(){
-        WebDriver driver = new ChromeDriver();
+    void contextMenuTest(){ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+
+        WebDriver driver = new ChromeDriver(options);
         driver.get("https://the-internet.herokuapp.com/context_menu");
 
         Actions action = new Actions(driver);
@@ -81,7 +92,9 @@ public class MouseTest {
     }
     @Test
     void keyPressTest(){
-        WebDriver driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        WebDriver driver = new ChromeDriver(options);
         driver.get("https://the-internet.herokuapp.com/key_presses");
 
         Actions action = new Actions(driver);
